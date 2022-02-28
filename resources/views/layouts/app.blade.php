@@ -50,7 +50,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a id="user-name" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="user-name" class="nav-link" href="#">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                             </li>
