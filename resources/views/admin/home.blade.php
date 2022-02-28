@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <button class="btn btn-primary mb-2"><a class="text-light text-decoration-none" href="#">Aggiungi un post</a></button>
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
