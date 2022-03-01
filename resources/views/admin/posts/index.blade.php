@@ -15,9 +15,11 @@
                             <small class="form-text">{{date_format($post->created_at, 'd/m/Y H:i')}}</small>
                         </div>
                         <div>
-                            <a href="{{route('admin.posts.show'), $post}}" class="text-secondary text-decoration-none">mostra</a>
-                            <a href="{{route('admin.posts.edit'), $post}}" class="text-decoration-none">modifica</a>
-                            <a href="{{}}" class="text-danger text-decoration-none">cancella</a>
+                            <a href="{{route('admin.posts.show', $post)}}" class="text-secondary text-decoration-none">mostra</a>
+                            @if($post->user_id == Auth::id())
+                            <a href="" class="text-decoration-none">modifica</a>
+                            <a href="" class="text-danger text-decoration-none">cancella</a>
+                            @endif
                         </div>
                     </div>
                 </div>

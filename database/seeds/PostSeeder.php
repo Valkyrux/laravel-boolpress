@@ -30,6 +30,7 @@ class PostSeeder extends Seeder
                     'title' => $faker->sentence(),
                     'content' => $faker->paragraph(3, true),
                 ]);
+                $new_post->slug = $new_post->auto_generate_slug();
                 $new_post->save();
             }
         }
