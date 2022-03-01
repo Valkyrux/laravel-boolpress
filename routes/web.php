@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
-})->name('guests.index');
+})->name('guest .index');
 
 Route::middleware('auth')
     ->namespace('Admin')
@@ -26,5 +26,6 @@ Route::middleware('auth')
     ->group(
         function () {
             Route::get('/', 'HomeController@index')->name('home');
+            Route::resource('/posts', 'PostController');
         }
     );

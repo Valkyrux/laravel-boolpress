@@ -2,33 +2,18 @@
     <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link active" href="#">
+          <a class="nav-link active" href="{{route('admin.home')}}">
             <i class="bi bi-house-door"></i> Dashboard
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">  
-            <i class="bi bi-file-earmark-arrow-up"></i> Orders
+          <a class="nav-link" href="{{route('admin.posts.index')}}">  
+            <i class="bi bi-file-earmark-arrow-up"></i> Posts
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
-            <i class="bi bi-cart"></i> Products
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="bi bi-people"></i> Customers
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="bi bi-graph-up"></i> Reports
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="bi bi-layers"></i> Integrations
+            <i class="bi bi-layers"></i> Categorie
           </a>
         </li>
       </ul>
