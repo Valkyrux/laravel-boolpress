@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Model\Post;
 
 class PostController extends Controller
@@ -26,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        // return view('admin.posts.create');
+        return view('admin.posts.create');
     }
 
     /**
@@ -37,7 +38,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new_post = new Post();
+        $validated = $request->validate([
+            'title' => 'required|max:240',
+            'content' => 'required',
+        ]);
+
+        $validated['user_id'] = Auth::id();
+        if ($validated) {
+            $new_post->fill($validated);
+            $new_post->slug = $new_post->auto_generate_slug();
+            $new_post->save();
+            return redirect()->route('admin.posts.show', $new_post);
+        }
     }
 
     /**
@@ -57,9 +70,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -69,9 +82,20 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|max:240',
+            'content' => 'required',
+        ]);
+
+        $validated['user_id'] = Auth::id();
+        if ($validated) {
+            $post->fill($validated);
+            $post->slug = $post->auto_generate_slug();
+            $post->update();
+            return redirect()->route('admin.posts.show', $post);
+        }
     }
 
     /**
