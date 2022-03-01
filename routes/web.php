@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', 'Admin\HomeController@index')->name('diocane');
-
 Auth::routes();
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('guests.index');
 
 Route::middleware('auth')
     ->namespace('Admin')
@@ -23,6 +25,6 @@ Route::middleware('auth')
     ->prefix('admin')
     ->group(
         function () {
-            Route::resource('/', 'HomeController');
+            Route::get('/', 'HomeController@index')->name('home');
         }
     );

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Model\Post;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
     /**
@@ -37,7 +38,18 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new_post = new Post();
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+        ]);
+
+        $validated['user_id'] = Auth::id();
+        if ($validated) {
+            $new_post->fill($validated);
+            $new_post->save();
+            return redirect()->route('admin.create');
+        }
     }
 
     /**
