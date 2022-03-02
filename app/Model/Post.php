@@ -19,6 +19,16 @@ class Post extends Model
         return 'slug';
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function category()
+    {
+        return $this->hasOne('App\Model\Category');
+    }
+
     public function auto_generate_slug()
     {
         $slug = Str::slug($this->title, '-');

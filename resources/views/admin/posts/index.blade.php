@@ -6,9 +6,9 @@
         @include('partials.adminDashboard')
         <div class="col-md-8">
             {{-- <button class="btn btn-primary mb-2"><a class="text-light text-decoration-none" href="{{route('admin.create')}}">Aggiungi un post</a></button> --}}
-            <div class="mb-3"><a href="{{route('admin.posts.create')}}" class="text-decoration-none fs-5"><i class="bi bi-plus-square"></i> Pubblica un Post</a></div>
+            <div class="mb-2"><a href="{{route('admin.posts.create')}}" class="text-decoration-none fs-5"><i class="bi bi-plus-square"></i> Pubblica un Post</a></div>
             @foreach ($posts as $post)
-                <div class="card post-block mb-3 {{($post->user_id == Auth::id())?'border-primary':''}}">
+                <div class="card post-block mb-4 {{($post->user_id == Auth::id())?'border-primary':''}}">
                     <div class="card-header"><h5>{{ $post->title }}</h5></div>
                     <div class="card-body">
                         <p>{{$post->content}}</p>
