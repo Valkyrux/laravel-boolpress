@@ -2,17 +2,27 @@
     <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link active" href="{{route('admin.home')}}">
+          <a class="nav-link active ps-0" href="{{route('admin.home')}}">
             <i class="bi bi-house-door"></i> Dashboard
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{route('admin.posts.index')}}">  
-            <i class="bi bi-file-earmark-arrow-up"></i> Posts
+          <a class="nav-link ps-0" href="{{route('admin.posts.index')}}">  
+            <i class="bi bi-file-earmark"></i> Tutti i post
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link ps-0" href="{{route('admin.my_posts.index')}}">  
+            <i class="bi bi-file-earmark-arrow-up"></i> I miei post
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ps-0" href="#">  
+            <i class="bi bi-people"></i> Utenti
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ps-0" href="#">
             <i class="bi bi-layers"></i> Categorie
           </a>
         </li>

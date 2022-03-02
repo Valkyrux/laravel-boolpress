@@ -18930,3 +18930,12 @@ fieldset:disabled .btn {
   content: "\F793";
 }
 
+.post-block .action-box {
+  z-index: -1;
+  position: relative;
+}
+
+.post-block:hover .action-box {
+  z-index: 0;
+}
+

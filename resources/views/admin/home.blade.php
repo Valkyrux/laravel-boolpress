@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content-center">
+<div class="container">
+    <div class="row">
         @include('partials.adminDashboard')
         <div class="col-md-8">
             {{-- <button class="btn btn-primary mb-2"><a class="text-light text-decoration-none" href="{{route('admin.create')}}">Aggiungi un post</a></button> --}}

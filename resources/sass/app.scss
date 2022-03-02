@@ -12,3 +12,15 @@
 // .ms_red {
 //     color: rgb(249 50 44);
 // }
+
+.post-block {
+    & .action-box{
+        z-index: -1;
+        position: relative;
+    }
+    &:hover {
+        & .action-box {
+            z-index: 0;
+        }
+    }
+}
