@@ -5,13 +5,36 @@
   @csrf
   @method('POST')
   <div class="form-group mb-3">
-    <label for="title">Titolo</label>
-    <input type="text" class="form-control" id="title" name="title">
+    <label for="category_id">Seleziona una Categoria</label>
+    <select class="form-select" name="category_id">
+      @foreach ($categories as $category)
+        <option value="{{$category->id}}" class="text-capitalize">{{$category->name}}</option> 
+      @endforeach
+    </select>
+    @error('category_id')
+      <div class="alert alert-danger pt-1 pb-1">
+        {{$message}}
+      </div>    
+    @enderror
+  </div>
+  <div class="form-group mb-3">
+    <label for="title">Inserisci un titolo</label>
+    <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}">
+    @error('title')
+      <div class="alert alert-danger pt-1 pb-1">
+        {{$message}}
+      </div>    
+    @enderror
   </div>
   <div class="form-group mb-3">
     <label for="content">A cosa stai pensando?</label>
-    <textarea class="form-control" id="content" name="content"></textarea>
+    <textarea class="form-control" id="content" name="content">{{old('content')}}</textarea>
   </div>
+  @error('content')
+      <div class="alert alert-danger pt-1 pb-1">
+        {{$message}}
+      </div>    
+    @enderror
   <button type="submit" class="btn btn-success text-light">Pubblica</button>
 </form>
 @endsection

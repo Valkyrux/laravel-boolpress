@@ -2,11 +2,12 @@
 
 @section('content')
 
-<div class="mb-3"><a href="" class="text-decoration-none fs-5"><i class="bi bi-plus-square"></i> Pubblica un Post</a></div>
+<div class="mb-3"><a href="{{route('admin.posts.create')}}" class="text-decoration-none fs-5"><i class="bi bi-plus-square"></i> Pubblica un Post</a></div>
 <div class="card mb-3 {{($post->user_id == Auth::id())?'border-primary':''}}">
     <div class="card-header"><h5>{{ $post->title }}</h5></div>
     <div class="card-body">
-        <p>{{$post->content}}</p>
+        <small class="text-primary"><span class="text-secondary">categoria: </span><a class=" text-decoration-none" href="{{route('admin.categories.show', $post->category)}}">{{$post->category->name}}</a></small>
+        <p class="mt-3">{{$post->content}}</p>
         <div class="text-end">
             <small class="form-text">creato: {{date_format($post->created_at, 'd/m/Y H:i')}}</small> 
             <br>

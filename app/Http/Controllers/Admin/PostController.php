@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Post;
+use App\Model\Category;
 
 class PostController extends Controller
 {
@@ -27,7 +28,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -42,8 +44,8 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:240',
             'content' => 'required',
+            'category_id' => 'required',
         ]);
-
         $validated['user_id'] = Auth::id();
         if ($validated) {
             $new_post->fill($validated);
@@ -72,7 +74,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        $data = ['post' => $post, 'categories' => $categories];
+        return view('admin.posts.edit', $data);
     }
 
     /**
@@ -87,6 +91,7 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:240',
             'content' => 'required',
+            'category_id' => 'required',
         ]);
 
         $validated['user_id'] = Auth::id();
