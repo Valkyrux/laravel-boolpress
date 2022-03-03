@@ -19,16 +19,16 @@ class UserInfoSeeder extends Seeder
 
             $gives_user_info = (bool) random_int(0, 1);
             if ($gives_user_info) {
-                if (empty(UserInfo::where('id', $user->id)->first())) {
+                if (empty(UserInfo::where('user_id', $user->id)->first())) {
                     $new_user_info = new UserInfo();
                     $new_user_info->fill([
                         'address' => $faker->address(),
                         'phone' => $faker->phoneNumber(),
+                        'user_id' => $user->id,
                     ]);
-                    $new_user_info->id = $user->id;
                     $new_user_info->save();
                 } else {
-                    $new_user_info = UserInfo::where('id', $user->id)->first();
+                    $new_user_info = UserInfo::where('user_id', $user->id)->first();
                     $new_user_info->fill([
                         'address' => $faker->address(),
                         'phone' => $faker->phoneNumber(),

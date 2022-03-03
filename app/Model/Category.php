@@ -7,9 +7,19 @@ use Illuminate\Support\Str;
 
 class Category extends Model
 {
+    protected $fillable = [
+        'name',
+        'slug',
+    ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function post()
     {
-        return $this->belongsTo('App\Model\Post');
+        return $this->hasMany('App\Model\Post');
     }
 
     public function auto_generate_slug()

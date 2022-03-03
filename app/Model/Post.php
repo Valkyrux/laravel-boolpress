@@ -9,6 +9,7 @@ class Post extends Model
 {
     protected $fillable = [
         'user_id',
+        'category_id',
         'title',
         'content',
         'slug'
@@ -26,7 +27,7 @@ class Post extends Model
 
     public function category()
     {
-        return $this->hasOne('App\Model\Category');
+        return $this->belongsTo('App\Model\Category');
     }
 
     public function auto_generate_slug()

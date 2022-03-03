@@ -23,7 +23,14 @@
     <div id="app">
         @include('partials.header')
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                <div class="row">
+                    @include('partials.adminDashboard')
+                    <div class="col-md-8">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </body>

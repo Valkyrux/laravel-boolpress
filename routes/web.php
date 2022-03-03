@@ -27,6 +27,9 @@ Route::middleware('auth')
         function () {
             Route::get('/', 'HomeController@index')->name('home');
             Route::get('/my_posts', 'PostController@myPostIndex')->name('my_posts.index');
+            Route::get('/categories', 'CategoryController@index')->name('categories.index');
+            Route::get('/categories/{category}', 'CategoryController@show')->name('categories.show');
+            Route::get('/profiles', 'UserController@index')->name('users.index');
             Route::resource('/posts', 'PostController');
         }
     );

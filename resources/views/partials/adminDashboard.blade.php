@@ -17,12 +17,12 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link ps-0" href="#">  
+          <a class="nav-link ps-0" href="{{route('admin.users.index')}}">  
             <i class="bi bi-people"></i> Utenti
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link ps-0" href="#">
+          <a class="nav-link ps-0" href="{{route('admin.categories.index')}}">
             <i class="bi bi-layers"></i> Categorie
           </a>
         </li>

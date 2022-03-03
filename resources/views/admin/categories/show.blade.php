@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mb-2"><a href="{{route('admin.posts.create')}}" class="text-decoration-none fs-5"><i class="bi bi-plus-square"></i> Pubblica un Post</a></div>
+<div><a href="{{route('admin.posts.create')}}" class="text-decoration-none fs-5"><i class="bi bi-plus-square"></i> Pubblica un Post</a></div>
+<h1 class="mb-2 fs-5 text-secondary text-uppercase">{{$category->name}}</h1>
     @foreach ($posts as $post)
         <div class="card post-block mb-4 {{($post->user_id == Auth::id())?'border-primary':''}}">
             <div class="card-header"><h5>{{ $post->title }}</h5></div>
             <div class="card-body">
-                <small class="text-primary text-uppercase"><a class="text-decoration-none" href="{{route('admin.categories.show', $post->category)}}">{{$post->category->name}}</a></small>
                 <p class="mt-3">{{$post->content}}</p>
                 <div class="text-end">
                     <small class="form-text">{{date_format($post->created_at, 'd/m/Y H:i')}}</small>
