@@ -15,7 +15,11 @@
                     <a href="{{route('admin.posts.show', $post)}}" class="text-secondary text-decoration-none d-inline-block me-3">dettagli</a>
                     @if($post->user_id == Auth::id())
                         <a href="{{route('admin.posts.edit', $post)}}" class="text-decoration-none d-inline-block me-3">modifica</a>
-                        <a href="" class="text-danger text-decoration-none d-inline-block me-3">cancella</a>
+                        <form action="{{route('admin.posts.destroy', $post)}}" method="POST" class="d-inline-block">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" value="cancella" class="text-danger text-decoration-none d-inline-block border-0 me-3 bg-body">
+                       </form>
                     @endif
                 </div>
             </div>
