@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Post;
 use App\Model\Category;
+use App\Model\Tag;
 
 class PostController extends Controller
 {
@@ -28,8 +29,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', ['tags' => $tags, 'categories' => $categories]);
     }
 
     /**
@@ -44,13 +46,20 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:240',
             'content' => 'required',
-            'category_id' => 'required',
+            'category_id' => 'required|exists:App\Model\Category,id',
+            'tags.*' => 'exists:App\Model\Category,id',
         ]);
+
         $validated['user_id'] = Auth::id();
         if ($validated) {
             $new_post->fill($validated);
             $new_post->slug = $new_post->auto_generate_slug();
             $new_post->save();
+
+            if (!empty($request->tags)) {
+                $new_post->tags()->attach($request->tags);
+            }
+
             return redirect()->route('admin.posts.show', $new_post);
         }
     }
@@ -75,8 +84,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        $data = ['post' => $post, 'categories' => $categories];
-        return view('admin.posts.edit', $data);
+        $tags = Tag::all();
+        return view('admin.posts.edit', ['post' => $post, 'categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -91,7 +100,8 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:240',
             'content' => 'required',
-            'category_id' => 'required',
+            'category_id' => 'required|exists:App\Model\Category,id',
+            'tag_id' => 'exists:App\Model\Tag,id',
         ]);
 
         $validated['user_id'] = Auth::id();
@@ -99,6 +109,13 @@ class PostController extends Controller
             $post->fill($validated);
             $post->slug = $post->auto_generate_slug();
             $post->update();
+
+            if (!empty($request->tags)) {
+                $post->tags()->sync($request->tags);
+            } else {
+                $post->tags()->detach();
+            }
+
             return redirect()->route('admin.posts.show', $post);
         }
     }
@@ -111,8 +128,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-        return redirect()->route('admin.posts.index');
+        if (Auth::id() == $post->user_id) {
+            $post->delete();
+            return redirect()->route('admin.posts.index');
+        }
     }
 
     /**

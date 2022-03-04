@@ -13,11 +13,38 @@
         @endforeach
       </select>
       @error('category_id')
-      <div class="alert alert-danger pt-1 pb-1">
-        {{$message}}
-      </div>    
-    @enderror
+        <div class="alert alert-danger pt-1 pb-1">
+          {{$message}}
+        </div>    
+       @enderror
     </div>
+
+    <div class="form-group mb-3">
+      <label for="tags">Seleziona i tag</label>
+        @foreach ($tags as $tag)
+          @if(empty(old('tags'))) 
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->name}}" name="tags[]" {{$post->tags->contains($tag->id) ?'checked':''}}> 
+              <label class="form-check-label" for="tags">
+                {{$tag->name}}
+              </label>
+            </div>
+          @else
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->name}}" name="tags[]" {{in_array($tag->id, old('tags', []))?'checked':''}}> 
+              <label class="form-check-label" for="tags">
+                {{$tag->name}}
+              </label>
+            </div>
+          @endif
+        @endforeach
+      @error('tags[]')
+        <div class="alert alert-danger pt-1 pb-1">
+          {{$message}}
+        </div>    
+      @enderror
+    </div>
+
     <label for="title">Modifica Titolo</label>
     <input type="text" class="form-control" id="title" name="title" value="{{old('title') ? old('title') : $post->title}}">
     @error('title')

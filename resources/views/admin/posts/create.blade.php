@@ -18,6 +18,22 @@
     @enderror
   </div>
   <div class="form-group mb-3">
+    <label for="tags">Seleziona i tag</label>
+      @foreach ($tags as $tag)
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->name}}" name="tags[]" {{in_array($tag->id, old('tags', []))?'checked':''}}> 
+        <label class="form-check-label" for="tags">
+          {{$tag->name}}
+        </label>
+      </div>
+      @endforeach
+    @error('tags[]')
+      <div class="alert alert-danger pt-1 pb-1">
+        {{$message}}
+      </div>    
+    @enderror
+  </div>
+  <div class="form-group mb-3">
     <label for="title">Inserisci un titolo</label>
     <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}">
     @error('title')

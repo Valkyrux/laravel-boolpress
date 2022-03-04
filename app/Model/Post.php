@@ -30,6 +30,11 @@ class Post extends Model
         return $this->belongsTo('App\Model\Category');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Model\Tag');
+    }
+
     public function auto_generate_slug()
     {
         $slug = Str::slug($this->title, '-');

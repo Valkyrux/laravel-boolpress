@@ -7,6 +7,14 @@
             <div class="card-header"><h5>{{ $post->title }}</h5></div>
             <div class="card-body">
                 <small class="text-primary text-uppercase"><a class="text-decoration-none" href="{{route('admin.categories.show', $post->category)}}">{{$post->category->name}}</a></small>
+                @if(!empty($post->tags))
+                    <div>
+                        @foreach($post->tags as $tag)
+                            <small class="text-secondary text-lowercase">#{{$tag->name}}</small>
+                        @endforeach
+                    </div>
+                @endif
+                <small class="text-primary text-lowercase"></small>
                 <p class="mt-3">{{$post->content}}</p>
                 <div class="text-end">
                     <small class="form-text">{{date_format($post->created_at, 'd/m/Y H:i')}}</small>

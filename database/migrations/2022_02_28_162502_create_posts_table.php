@@ -18,14 +18,14 @@ class CreatePostsTable extends Migration
 
             $table->unsignedBigInteger('user_id')
                 ->nullable();
-            $table->foreign('user_id')->constrained()
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('set null');
 
             $table->unsignedBigInteger('category_id')
                 ->nullable();
-            $table->foreign('category_id')->constrained()
+            $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
                 ->onDelete('set null');
