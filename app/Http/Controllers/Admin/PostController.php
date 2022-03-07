@@ -47,7 +47,7 @@ class PostController extends Controller
             'title' => 'required|max:240',
             'content' => 'required',
             'category_id' => 'required|exists:App\Model\Category,id',
-            'tags.*' => 'exists:App\Model\Category,id',
+            'tags.*' => 'nullable|exists:App\Model\Category,id',
         ]);
 
         $validated['user_id'] = Auth::id();
@@ -97,26 +97,29 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $validated = $request->validate([
-            'title' => 'required|max:240',
-            'content' => 'required',
-            'category_id' => 'required|exists:App\Model\Category,id',
-            'tag_id' => 'exists:App\Model\Tag,id',
-        ]);
+        if (Auth::id() == $post->user_id) {
+            $validated = $request->validate([
+                'title' => 'required|max:240',
+                'content' => 'required',
+                'category_id' => 'required|exists:App\Model\Category,id',
+                'tag_id' => 'nullable|exists:App\Model\Tag,id',
+            ]);
 
-        $validated['user_id'] = Auth::id();
-        if ($validated) {
-            $post->fill($validated);
-            $post->slug = $post->auto_generate_slug();
-            $post->update();
+            if ($validated) {
+                $post->fill($validated);
+                $post->slug = $post->auto_generate_slug();
+                $post->update();
 
-            if (!empty($request->tags)) {
-                $post->tags()->sync($request->tags);
-            } else {
-                $post->tags()->detach();
+                if (!empty($request->tags)) {
+                    $post->tags()->sync($request->tags);
+                } else {
+                    $post->tags()->detach();
+                }
+
+                return redirect()->route('admin.posts.show', $post);
             }
-
-            return redirect()->route('admin.posts.show', $post);
+        } else {
+            abort('403');
         }
     }
 
@@ -131,6 +134,8 @@ class PostController extends Controller
         if (Auth::id() == $post->user_id) {
             $post->delete();
             return redirect()->route('admin.posts.index');
+        } else {
+            abort('403');
         }
     }
 
