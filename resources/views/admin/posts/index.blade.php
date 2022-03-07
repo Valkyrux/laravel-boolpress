@@ -5,6 +5,9 @@
     @foreach ($posts as $post)
         <div class="card post-block mb-4 {{($post->user_id == Auth::id())?'border-primary':''}}">
             <div class="card-header"><h5>{{ $post->title }}</h5></div>
+            @if(!empty($post->image))
+                <div class="w-100 text-center mt-3 mb-3"><img class="w-50" src="{{asset('storage/' . $post->image)}}" alt="{{$post->title}}"></div>
+            @endif
             <div class="card-body">
                 <small class="text-primary text-uppercase"><a class="text-decoration-none" href="{{route('admin.categories.show', $post->category)}}">{{$post->category->name}}</a></small>
                 @if(!empty($post->tags))

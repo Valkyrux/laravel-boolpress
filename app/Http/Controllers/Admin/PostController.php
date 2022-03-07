@@ -45,18 +45,21 @@ class PostController extends Controller
     {
         $new_post = new Post();
 
-
-        $image_path = Storage::put('uploads', $request->image);
-
         $validated = $request->validate([
             'title' => 'required|max:240',
             'content' => 'required',
             'category_id' => 'required|exists:App\Model\Category,id',
             'tags.*' => 'nullable|exists:App\Model\Category,id',
+            'image' => 'nullable|image',
         ]);
 
         $validated['user_id'] = Auth::id();
         if ($validated) {
+            if (!empty($request->image)) {
+                $image_path = Storage::put('uploads', $request->image);
+                $validated['image'] = $image_path;
+            }
+
             $new_post->fill($validated);
             $new_post->slug = $new_post->auto_generate_slug();
             $new_post->save();
