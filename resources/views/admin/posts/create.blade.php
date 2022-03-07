@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{route('admin.posts.store')}}" method="POST">
+<form action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
   @csrf
   @method('POST')
   <div class="form-group mb-3">
@@ -42,15 +42,22 @@
       </div>    
     @enderror
   </div>
+  
   <div class="form-group mb-3">
     <label for="content">A cosa stai pensando?</label>
     <textarea class="form-control" id="content" name="content">{{old('content')}}</textarea>
   </div>
   @error('content')
-      <div class="alert alert-danger pt-1 pb-1">
-        {{$message}}
-      </div>    
-    @enderror
+    <div class="alert alert-danger pt-1 pb-1">
+      {{$message}}
+    </div>    
+  @enderror
+
+  <div class="input-group mb-3">
+    <label class="input-group-text" for="image">Carica</label>
+    <input type="file" class="form-control" id="image-upload" name="image">
+  </div>
+
   <button type="submit" class="btn btn-success text-light">Pubblica</button>
 </form>
 @endsection

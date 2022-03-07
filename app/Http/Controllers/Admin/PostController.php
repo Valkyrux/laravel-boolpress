@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Model\Post;
 use App\Model\Category;
 use App\Model\Tag;
@@ -43,6 +44,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $new_post = new Post();
+
+
+        $image_path = Storage::put('uploads', $request->image);
+
         $validated = $request->validate([
             'title' => 'required|max:240',
             'content' => 'required',
