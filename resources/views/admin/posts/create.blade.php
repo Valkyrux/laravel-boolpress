@@ -57,6 +57,11 @@
     <label class="input-group-text" for="image">Carica</label>
     <input type="file" class="form-control" id="image-upload" name="image">
   </div>
+  @error('content')
+    <div class="alert alert-danger pt-1 pb-1">
+      {{$message}}
+    </div>    
+  @enderror
 
   <button type="submit" class="btn btn-success text-light">Pubblica</button>
 </form>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{route('admin.posts.update', $post)}}" method="POST">
+<form action="{{route('admin.posts.update', $post)}}" method="POST" enctype="multipart/form-data">
   @csrf
   @method('PUT')
   <div class="form-group mb-3">
@@ -53,6 +53,7 @@
       </div>    
     @enderror
   </div>
+  
   <div class="form-group mb-3">
     <label for="content">Modifica contenuto</label>
     <textarea class="form-control" id="content" name="content">{{old('content') ? old('content') : $post->content}}</textarea>
@@ -62,6 +63,17 @@
       </div>    
     @enderror
   </div>
+
+  <div class="input-group mb-3">
+    <label class="input-group-text" for="image">Nuovo File</label>
+    <input type="file" class="form-control" id="image-upload" name="image">
+  </div>
+  @error('content')
+    <div class="alert alert-danger pt-1 pb-1">
+      {{$message}}
+    </div>    
+  @enderror
+  
   <button type="submit" class="btn btn-success text-light">Aggiorna</button>
 </form>
 @endsection

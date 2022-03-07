@@ -111,9 +111,17 @@ class PostController extends Controller
                 'content' => 'required',
                 'category_id' => 'required|exists:App\Model\Category,id',
                 'tag_id' => 'nullable|exists:App\Model\Tag,id',
+                'image' => 'nullable|image',
             ]);
-
             if ($validated) {
+                if (!empty($request->image)) {
+                    Storage::delete('uploads', $post->image);
+                    $image_path = Storage::put('uploads', $request->image);
+                    $validated['image'] = $image_path;
+                } else {
+                    $validated['image'] = $post->image;
+                }
+
                 $post->fill($validated);
                 $post->slug = $post->auto_generate_slug();
                 $post->update();
