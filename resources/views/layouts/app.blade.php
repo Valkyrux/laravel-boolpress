@@ -9,8 +9,8 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- script --}}
+    @yield('script')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,13 +20,15 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @include('partials.header')
     <div id="app">
-        @include('partials.header')
         <main class="py-4">
             <div class="container">
                 <div class="row">
-                    @include('partials.adminDashboard')
-                    <div class="col-md-8">
+                    @auth
+                        @include('partials.adminDashboard')
+                    @endauth
+                    <div class="col-md-8 @guest offset-2 @endguest">
                         @yield('content')
                     </div>
                 </div>
