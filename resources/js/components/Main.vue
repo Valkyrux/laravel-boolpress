@@ -3,7 +3,9 @@
         <div class="row">
             <div class="col" v-if="posts !== []">
                 <div class="card mb-5" v-for="(post, index) in posts" :key="'guest-post-' + index">
-                    <img src="" class="card-img-top" alt="">
+                    <div class="card-img-top" v-if="post.image">
+                        <img :src="'storage/' + post.image" class="w-100" :alt="post.title">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{post.title}}</h5>
                         <p class="card-text">{{post.content}}</p>
