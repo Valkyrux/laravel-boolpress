@@ -13,6 +13,10 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center mb-3">
+                 <button class="btn" :disabled="!prevPageUrl? true : false" @click="getPosts(prevPageUrl)">precedente</button>
+            <button class="btn" :disabled="!nextPageUrl? true : false" @click="getPosts(nextPageUrl)">successiva</button>
+            </div>
         </div>
     </div>
 </template>
@@ -25,13 +29,35 @@ export default {
     data() {
         return {
             posts: [],
+            prevPageUrl: null,
+            nextPageUrl: null,
         }
     },
     created() {
-        Axios.get('http://127.0.0.1:8000/api/posts')
-        .then((result) => {
-            this.posts = result.data.result;
-        }).catch((error) => {console.log(error)});
+        this.getPosts('http://127.0.0.1:8000/api/posts');
+        
+    }, 
+    methods: {
+        getPosts(url) {
+            if(url){
+                Axios.get(url)
+                    .then((result) => {
+                        this.posts = result.data.result.data;
+                        console.log(result.data.result.next_page_url);
+                        if(result.data.result.prev_page_url) {
+                            this.prevPageUrl = result.data.result.prev_page_url;
+                        } else {
+                            this.prevPageUrl = null;
+                        }
+                
+                        if(result.data.result.next_page_url) {
+                            this.nextPageUrl = result.data.result.next_page_url;
+                        } else {
+                            this.nextPageUrl = null;
+                        }
+                    }).catch((error) => {console.log(error)});
+            }
+        }
     }
 }
 </script>

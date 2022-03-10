@@ -115,7 +115,7 @@ class PostController extends Controller
             ]);
             if ($validated) {
                 if (!empty($request->image)) {
-                    Storage::delete('uploads', $post->image);
+                    Storage::delete($post->image);
                     $image_path = Storage::put('uploads', $request->image);
                     $validated['image'] = $image_path;
                 } else {
@@ -149,6 +149,11 @@ class PostController extends Controller
     {
         if (Auth::id() == $post->user_id) {
             $post->delete();
+
+            if (!empty($post->image)) {
+                Storage::delete($post->image);
+            }
+
             return redirect()->route('admin.posts.index');
         } else {
             abort('403');

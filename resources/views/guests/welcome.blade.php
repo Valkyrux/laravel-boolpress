@@ -5,5 +5,4 @@
 @endsection
 
 @section('content')
-    hello
 @endsection
