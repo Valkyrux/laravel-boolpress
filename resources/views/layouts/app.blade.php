@@ -28,7 +28,7 @@
                     @auth
                         @include('partials.adminDashboard')
                     @endauth
-                    <div class="col-md-8 @guest offset-2 @endguest">
+                    <div class="col-md-8 @guest offset-md-2 @endguest">
                         @yield('content')
                     </div>
                 </div>
